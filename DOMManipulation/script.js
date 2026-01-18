@@ -23,24 +23,36 @@ if (dataTersimpan) {
   todos = JSON.parse(dataTersimpan);
 }
 
-// === BAGIAN 3: FUNCTION RENDER (ARRAY MAPPING) ===
+// === BAGIAN 3: FUNCTION RENDER (REACT STYLE) ===
 function renderTodoList() {
-  // 1. Array Mapping: Mengubah array object menjadi array string HTML
-  // Contoh: [{text: 'A'}] menjadi ["<li>A</li>"]
-  const todoHTML = todos.map((item, index) => {
+  // 1. Reset container
+  todoListContainer.innerHTML = "";
+
+  // 2. Array Mapping: Mengubah array DATA menjadi array DOM NODES
+  // Konsep: [Object, Object] ---> [<li>..</li>, <li>..</li>] (Bentuk Element Asli)
+  const todoElements = todos.map((item, index) => {
+    // a. Create Element
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    
+    // b. Atur content & style
+    span.textContent = item.text;
     const delay = index * 0.1;
-    return `
-            <li style="animation-delay: ${delay}s">
-                <span>${item.text}</span>
-            </li>
-        `;
+    li.style.animationDelay = `${delay}s`;
+    
+    // c. Susun (Assemble)
+    li.appendChild(span);
+    
+    // d. RETURN elemen tersebut!
+    // Di React, ini mirip dengan "return <li key={...}>...</li>"
+    return li; 
   });
 
-  // 2. Menggabungkan array string menjadi satu string panjang
-  const htmlString = todoHTML.join("");
-
-  // 3. Memasukkan string tersebut ke dalam container di HTML
-  todoListContainer.innerHTML = htmlString;
+  // Saat ini 'todoElements' berisi: [HTMLLIElement, HTMLLIElement, ...]
+  
+  // 3. Render ke layar (Append)
+  // Kita gunakan spread operator (...) untuk memasukkan semua elemen sekaligus
+  todoListContainer.append(...todoElements);
 }
 
 // Panggil fungsi render saat pertama kali web dibuka
