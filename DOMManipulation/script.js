@@ -1,6 +1,6 @@
 // === BAGIAN 1: DOM SELECTION ===
 const body = document.body;
-const modeToggleBtn = document.getElementById("mode-toggle");
+const switchBtn = document.getElementById("switch-mode");
 const todoInput = document.getElementById("todo-input");
 const addBtn = document.getElementById("add-btn");
 const todoListContainer = document.getElementById("todo-list");
